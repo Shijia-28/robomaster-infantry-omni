@@ -1,0 +1,15 @@
+// Flash the CHASSIS board with Chassis/build/omni_chassis.elf.
+// Make sure the J-Link is plugged into the CHASSIS board before running.
+//
+// Usage (from the repo root, after `cmake --build --preset Debug` in Chassis/):
+//   & "D:\Robomaster\J-Link\JLink_V976\JLink.exe" -NoGui 1 -ExitOnError 1 ^
+//       -CommanderScript tools\flash_chassis.jlink
+device STM32F407VG
+si SWD
+speed 1000
+connect
+erase
+loadfile "Chassis\build\Debug\omni_chassis.elf"
+r
+g
+qc

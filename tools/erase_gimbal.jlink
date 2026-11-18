@@ -1,0 +1,18 @@
+// Erase the GIMBAL board to blank (mass erase, no firmware loaded).
+// Make sure the J-Link is plugged into the GIMBAL board before running:
+// both boards use the same MCU, so a wrong connection erases the wrong board.
+//
+// Usage (from the repo root):
+//   & "D:\Robomaster\J-Link\JLink_V976\JLink.exe" -NoGui 1 -ExitOnError 1 ^
+//       -CommanderScript tools\erase_gimbal.jlink
+//
+// After erasing, the gimbal board runs no code at all: it sends no CAN frames and
+// cannot drive the DM-J4310 motors. The chassis board will then report the peer
+// offline, so set Robot::kRequireGimbalOnline = false before driving the chassis.
+device STM32F407VG
+si SWD
+speed 1000
+connect
+erase
+r
+qc

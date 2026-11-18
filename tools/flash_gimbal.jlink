@@ -1,0 +1,24 @@
+// Flash the GIMBAL board with Gimbal/build/omni_gimbal.elf.
+// Make sure the J-Link is plugged into the GIMBAL board before running.
+//
+// What the gimbal firmware does:
+//   - reads its own DBUS on USART3 (考核说明 1.3：没有有效遥控数据不允许电机出力);
+//   - closes yaw / pitch joint position loops on the two DM-J4310 (torque output,
+//     so yaw can rotate continuously past ±π);
+//   - yaw optionally uses IMU absolute heading (reports kCartesian so the chassis
+//     can run follow mode); falls back to joint-angle control when the IMU is not
+//     calibrated yet;
+//   - sends G2C (0x211) on CAN1 and DM commands on CAN2 (CAN1 = 双板线, CAN2 = 电机);
+//   - feeds the IWDG (600 ms) only after a complete 1 ms control cycle.
+//
+// Before acceptance: build with the safety switches in Gimbal/RobotModules/component/robot.hpp
+// left at their defaults (GIMBAL_REQUIRE_REMOTE = 1, GIMBAL_REQUIRE_IMU_READY = 1).
+device STM32F407VG
+si SWD
+speed 1000
+connect
+erase
+loadfile "Gimbal\build\Debug\omni_gimbal.elf"
+r
+g
+qc

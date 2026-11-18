@@ -1,0 +1,41 @@
+# ---- 构建产物（CubeMX + CMake/Ninja）----
+build/
+**/build/
+*.o
+*.d
+*.a
+*.elf
+*.bin
+*.hex
+*.map
+*.su
+*.lst
+compile_commands.json
+.cmake/
+.cache/
+CMakeCache.txt
+CMakeFiles/
+CMakeUserPresets.json
+
+# ---- IDE / 本机配置 ----
+.vscode/
+**/.vscode/
+*.jdebug
+*.code-workspace
+.idea/
+
+# ---- 编译产生的中间文件 ----
+*.obj
+*.pdb
+*.ilk
+*.log
+
+# ---- OS ----
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ---- 说明：以下内容应当提交，不要加进忽略 ----
+#   Chassis/  Gimbal/  RobotComponents/  tools/  *.md
+#   Chassis/Drivers、Chassis/third_party、Chassis/cmake 等 vendored 依赖
+#   （CubeMX 工程必须自带 HAL 与链接脚本，缺了无法编译）
